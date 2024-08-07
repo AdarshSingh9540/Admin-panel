@@ -21,7 +21,7 @@ export const Dashboard = ({ toggleSidebar }) => {
   ];
 
   return (
-    <div className="flex-1 p-8 bg-gray-100">
+    <div className="flex-1 p-8 bg-gray-100 pt-16">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Good afternoon, Adarsh Singh</h1>
       </div>

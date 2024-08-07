@@ -3,6 +3,7 @@ import useStore from '../Store';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { useLocation } from 'react-router-dom';
 
 // Register Chart.js components
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
@@ -11,6 +12,9 @@ const ProjectDetails = () => {
   const { selectedAssignees } = useStore(); // Access selected assignees from Zustand store
   const [filter, setFilter] = useState('');
   const [workProgress, setWorkProgress] = useState({});
+  const location = useLocation();
+  const { item } = location.state || {};
+
 
   useEffect(() => {
     // Initialize work progress for each assignee
@@ -68,8 +72,13 @@ const ProjectDetails = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 lg:w-full">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-4">Project Details</h1>
+    <div className="p-4 sm:p-6 lg:p-8 lg:w-full pt-16">
+      <div className="text-sm text-gray-500 p-4 bg-white border-b">
+        <span className="hover:text-blue-600 cursor-pointer">Projects & Tasks</span> / 
+        <span className="hover:text-blue-600 cursor-pointer"> Tasks</span> / 
+        <span className="font-semibold"> Project Details</span>
+      </div>
+      <h1 className="text-2xl sm:text-3xl font-bold my-4">Project Details</h1>
       
       <div className="mb-6 border p-4 rounded-lg bg-white shadow-md">
         <h2 className="text-xl font-semibold mb-2">Selected Assignees</h2>
@@ -161,4 +170,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails;
+export default ProjectDetails

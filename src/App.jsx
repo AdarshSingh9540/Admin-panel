@@ -17,7 +17,7 @@ const App = () => {
       <BrowserRouter>
         <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         <div 
-          className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}  lg:pl-64 mt-12`}
+          className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}  lg:pl-64`}
         >
           <Routes>
             <Route path="/" element={<Dashboard />} />

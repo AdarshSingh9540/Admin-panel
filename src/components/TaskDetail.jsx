@@ -54,7 +54,7 @@ const TaskList = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-gray-50">
+    <div className="flex flex-col min-h-screen w-full bg-gray-50 pt-16">
       <div className="text-sm text-gray-500 p-4 bg-white border-b">
         <span className="hover:text-blue-600 cursor-pointer">Projects & Tasks</span> / 
         <span className="hover:text-blue-600 cursor-pointer"> Tasks</span> / 
@@ -134,7 +134,9 @@ const TaskList = () => {
                 }}
               />
               <div 
-                onClick={() => navigate('/project-detail')}
+                onClick={() => 
+                  navigate('/project-detail', { state: { title: 'Sample Project' } })
+                }
                 className="flex flex-wrap gap-2 mt-2 cursor-pointer"
               >
                 {selectedAssignees.map(assignee => (
@@ -166,8 +168,8 @@ const TaskList = () => {
         </div>
 
         <div className="mt-8">
-          <div className="flex  lg:flex-col sm:flex-row items-center mb-4">
-            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" className="w-8 h-8 rounded-full mr-2" />
+          <div className="flex  sm:flex-row items-center mb-4">
+            <img src="https://avatars.githubusercontent.com/u/131537713?v=4" alt="User" className="w-8 h-8 rounded-full mr-2" />
             <div className="flex-1 relative">
               <input
                 type="text"
@@ -195,21 +197,23 @@ const TaskList = () => {
 
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">About this task</h2>
-          <div className="flex lg:flex-col sm:flex-row items-center mb-2">
-            <input
-              type="text"
-              placeholder="Add a task item..."
-              value={taskItem}
-              onChange={(e) => setTaskItem(e.target.value)}
-              className="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-            />
-            <button
-              onClick={handleAddTaskItem}
-              className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            >
-              Add
-            </button>
-          </div>
+          <div className="relative flex items-center mb-2">
+  <input
+    type="text"
+    placeholder="Add a task item..."
+    value={taskItem}
+    onChange={(e) => setTaskItem(e.target.value)}
+    className="w-full p-2 pr-12 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+  />
+  <button
+    onClick={handleAddTaskItem}
+    className="absolute right-0 top-0 bottom-0 p-4  my-1 mx-1 bg-blue-600 text-white flex items-center justify-center rounded-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+  >
+    Add
+  </button>
+</div>
+
+
           <ul className="list-disc pl-5 text-gray-700">
             {taskItems.map((item, index) => (
               <li key={index}>{item}</li>
