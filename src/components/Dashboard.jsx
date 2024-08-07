@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
-import { Calendar, ChevronDown, Menu, PlusSquare, Search } from 'lucide-react';
+import React from 'react';
 import { useNavigate } from 'react-router';
+import useStore from '../Store';
 
 export const Dashboard = ({ toggleSidebar }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // Fetching data from Zustand store
+  const { users } = useStore((state) => ({
+    users: state.users,
+  }));
+
+  // Sample data for recentItems and events
   const recentItems = [
     { title: 'Task 2', time: 'Just now', color: 'from-blue-400 to-blue-600' },
     { title: 'Task 1', time: '9m ago', color: 'from-green-400 to-green-600' },
@@ -25,6 +32,7 @@ export const Dashboard = ({ toggleSidebar }) => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Good afternoon, Adarsh Singh</h1>
       </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentItems.map((item, index) => (
           <div
@@ -37,8 +45,41 @@ export const Dashboard = ({ toggleSidebar }) => {
           </div>
         ))}
       </div>
+
       <div className="mt-12">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Upcoming events</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">All Team Members</h2>
+        <div className="grid grid-cols-1 gap-6">
+          {users.map((user) => (
+            <div
+              key={user.id}
+              onClick={() => navigate(`/user-profile/${user.id}`)}
+              className="bg-white p-6  rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl flex flex-row justify-between lg:mx-6  "
+            >
+               <div className='flex flex-row pt-2'>
+               <div className="bg-gray-200 p-2 rounded-full  lg:px-4 mb-2">
+                <span className="text-gray-800 text-lg font-bold">{user.name[0]}</span>
+              </div>
+              <h3 className="font-semibold text-lg text-gray-800 ml-6">{user.name}</h3>
+              <p className="text-md text-gray-600 ml-6">Tasks: {user.tasks.length}</p>
+               </div>
+              
+               <div className='hidden lg:block  pt-2'>
+               <div className='flex flex-row'>
+               <div>
+               <p className='text-md'>See all assign task  </p>
+               </div>
+               <div className='m-3 my-1'>
+               <span className="material-symbols-outlined">arrow_forward_ios</span>
+               </div>
+               </div>
+               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Upcoming Events</h2>
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <span className="text-gray-600">See your upcoming events and join meetings from Home.</span>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useStore from '../Store';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { useMediaQuery } from '@mui/material';
 
@@ -13,6 +13,7 @@ const ProjectDetails = () => {
   const location = useLocation();
   const { item } = location.state || {};
   const isMobile = useMediaQuery('(max-width:600px)');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize work progress for each assignee
@@ -81,7 +82,13 @@ const ProjectDetails = () => {
         />
         <div className="flex flex-wrap gap-2">
           {filteredAssignees.map(assignee => (
-            <div key={assignee.value} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+            <div
+             key={assignee.value}
+              className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm cursor-pointer"
+              onClick={()=>
+                  navigate("/project-details/user")
+              }
+              >
               {assignee.label}
             </div>
           ))}

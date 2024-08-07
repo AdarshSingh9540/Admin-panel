@@ -39,7 +39,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="p-4">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+              <div className="w-8 h-8 bg-blue-500 rounded-full"><img src="https://avatars.githubusercontent.com/u/131537713?v=4" alt="" /></div>
               <span className="font-semibold hidden lg:block">Adarsh Singh</span>
             </div>
             <button 

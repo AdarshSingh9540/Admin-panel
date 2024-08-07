@@ -4,6 +4,7 @@ import { Dashboard } from './components/Dashboard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import TaskDetail from './components/TaskDetail';
 import ProjectDetails from './components/ProjectDetails';
+import UserDetails from './components/UserDetails';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,6 +24,8 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/task-list" element={<TaskDetail />} />
             <Route path="/project-detail" element={<ProjectDetails />} />
+            <Route path='/project-details/user' element={<UserDetails/>}/>
+            <Route path="/user-profile/:userId" element={<UserDetails />} />
           </Routes>
         </div>
       </BrowserRouter>

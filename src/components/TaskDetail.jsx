@@ -8,12 +8,13 @@ const TaskList = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { item } = location.state || {};
-
+ 
   const { 
     status, setStatus,
     priority, setPriority,
     dueDate, setDueDate,
-    selectedAssignees, setSelectedAssignees 
+    selectedAssignees, setSelectedAssignees ,
+    allAssignees
   } = useStore();
 
   const [comment, setComment] = useState('');
@@ -21,7 +22,7 @@ const TaskList = () => {
   const [taskItem, setTaskItem] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
-  const allAssignees = ['Parth', 'Adarsh', 'John', 'Rahul'];
+  // const allAssignees = ['Parth', 'Adarsh', 'John', 'Rahul'];
   const assigneeOptions = allAssignees.map(assignee => ({
     value: assignee,
     label: assignee,
@@ -58,7 +59,7 @@ const TaskList = () => {
       <div className="text-sm text-gray-500 p-4 bg-white border-b">
         <span className="hover:text-blue-600 cursor-pointer">Projects & Tasks</span> / 
         <span className="hover:text-blue-600 cursor-pointer"> Tasks</span> / 
-        <span className="font-semibold"> {item?.title}</span>
+        <span className="font-semibold"> {item?.title || "New Task"}</span>
       </div>
       <div className="flex-grow p-4 sm:p-6 lg:p-8 lg:w-1/2 mx-auto lg:ml-[15rem]">
         <div className="flex items-center mb-8">
@@ -67,7 +68,7 @@ const TaskList = () => {
               <rect width="24" height="24" rx="4" fill="#3B82F6" />
             </svg>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{item?.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{item?.title || "New Task"}</h1>
         </div>
 
         <div className="space-y-6">
