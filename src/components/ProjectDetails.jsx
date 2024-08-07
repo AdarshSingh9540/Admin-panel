@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import useStore from '../Store';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { useLocation } from 'react-router-dom';
-
-// Register Chart.js components
-ChartJS.register(Title, Tooltip, Legend, ArcElement);
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { useMediaQuery } from '@mui/material';
 
 const ProjectDetails = () => {
   const { selectedAssignees } = useStore(); // Access selected assignees from Zustand store
@@ -14,7 +12,7 @@ const ProjectDetails = () => {
   const [workProgress, setWorkProgress] = useState({});
   const location = useLocation();
   const { item } = location.state || {};
-
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     // Initialize work progress for each assignee
@@ -32,32 +30,24 @@ const ProjectDetails = () => {
     assignee.label.toLowerCase().includes(filter.toLowerCase())
   );
 
-  const pieChartData = {
-    labels: filteredAssignees.map(assignee => assignee.label),
-    datasets: [
-      {
-        label: 'Work Completed',
-        data: filteredAssignees.map(assignee => workProgress[assignee.value]?.percentage || 0),
-        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
-        borderWidth: 1,
-      },
-    ],
-  };
+  // Prepare data for the MUI PieChart
+  const pieChartData = filteredAssignees.map(assignee => ({
+    label: assignee.label,
+    value: workProgress[assignee.value]?.percentage || 0
+  }));
 
+  // Prepare data for the line chart
   const lineChartData = [
     { name: 'Week 1', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[0] || 0])) },
     { name: 'Week 2', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[1] || 0])) },
     { name: 'Week 3', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[2] || 0])) },
     { name: 'Week 4', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[3] || 0])) },
   ];
+  
 
-  const handlePieClick = (event, elements) => {
-    if (elements.length > 0) {
-      const index = elements[0].index;
-      const selectedAssignee = filteredAssignees[index];
-      console.log(`Clicked on ${selectedAssignee.label}`);
-    }
+  const handlePieClick = (event, data) => {
+    // Adapt this based on how the MUI PieChart handles clicks
+    console.log(`Clicked on ${data.label}`);
   };
 
   const updateWorkProgress = (assigneeValue, weekIndex, value) => {
@@ -129,40 +119,46 @@ const ProjectDetails = () => {
         ))}
       </div>
 
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+      <div className="grid h-auto grid-cols-1 md:grid-cols-2">
         <div className="border p-4 rounded-lg bg-white shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Work Progress (Line Chart)</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={lineChartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {filteredAssignees.map((assignee, index) => (
-                <Line
-                  key={assignee.value}
-                  type="monotone"
-                  dataKey={assignee.label}
-                  stroke={`hsl(${index * 137.508},70%,50%)`}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+  <h2 className="text-xl font-semibold mb-6">Work Progress</h2>
+  <ResponsiveContainer width="100%" height={300}>
+    <LineChart data={lineChartData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      {filteredAssignees.map((assignee, index) => (
+        <Line
+          key={assignee.value}
+          type="monotone"
+          dataKey={assignee.label}
+          stroke={`hsl(${index * 137.508},70%,50%)`}
+        />
+      ))}
+    </LineChart>
+  </ResponsiveContainer>
+</div>
 
-        <div className="border p-4 rounded-lg bg-white shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Task Status (Pie Chart)</h2>
-          <Pie
-            data={pieChartData}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Task Status' },
-              },
-            }}
-            onClick={handlePieClick}
+
+        <div className="border p-4   rounded-lg h-[450px]   bg-white shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Task Status </h2>
+          <PieChart
+            series={[
+              {
+                data: pieChartData,
+                innerRadius: 30,
+                outerRadius: 100,
+                paddingAngle: 5,
+                cornerRadius: 5,
+                startAngle: -90,
+                endAngle: 180,
+                cx: isMobile ? 90 : 150,
+                cy: isMobile ? 200 : 150,
+              }
+            ]}
+            onClick={handlePieClick} 
           />
         </div>
       </div>
@@ -170,4 +166,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails
+export default ProjectDetails;
