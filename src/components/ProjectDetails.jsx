@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import useStore from '../Store';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
 const ProjectDetails = () => {
   const { selectedAssignees } = useStore();
@@ -31,6 +30,7 @@ const ProjectDetails = () => {
   );
 
   const pieChartData = filteredAssignees.map(assignee => ({
+    id: assignee.value,
     label: assignee.label,
     value: workProgress[assignee.value]?.percentage || 0
   }));
@@ -42,8 +42,12 @@ const ProjectDetails = () => {
     { name: 'Week 4', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[3] || 0])) },
   ];
 
-  const handlePieClick = (event, data) => {
-    console.log(`Clicked on ${data.label}`);
+  const handleLineClick = (data, entry) => {
+    const assignee = selectedAssignees.find(a => a.label === entry.dataKey);
+    if (assignee) {
+      const assigneeIndex = selectedAssignees.findIndex(a => a.value === assignee.value) + 1;
+      navigate(`/user-profile/${assigneeIndex}`);
+    }
   };
 
   const updateWorkProgress = (assigneeValue, weekIndex, value) => {
@@ -57,15 +61,12 @@ const ProjectDetails = () => {
     }));
   };
 
-  const allAssignees = ['Parth', 'Adarsh', 'Priya', 'Rahul', 'Anjali'];
-
   const handleAssigneeClick = (assigneeName) => {
-    const index = allAssignees.indexOf(assigneeName) + 1; 
-    if (index !== -1) {
-      navigate(`/user-profile/${index}`);
+    const assigneeIndex = selectedAssignees.findIndex(a => a.label === assigneeName) + 1;
+    if (assigneeIndex > 0) {
+      navigate(`/user-profile/${assigneeIndex}`);
     }
   };
-  
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 lg:w-full pt-16">
@@ -128,9 +129,9 @@ const ProjectDetails = () => {
           </div>
         ))}
       </div>
-
-      <div className="grid h-auto grid-cols-1 md:grid-cols-2">
-        <div className="border p-4 rounded-lg bg-white shadow-md">
+      
+      <div className="grid h-auto grid-cols-1 md:grid-cols-2 mt-10">
+        <div className="border p-4 rounded-lg bg-white shadow-md mx-4">
           <h2 className="text-xl font-semibold mb-6">Work Progress</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={lineChartData}>
@@ -145,6 +146,9 @@ const ProjectDetails = () => {
                   type="monotone"
                   dataKey={assignee.label}
                   stroke={`hsl(${index * 137.508},70%,50%)`}
+                  activeDot={{ 
+                    onClick: (props) => handleLineClick(props.payload, { dataKey: assignee.label }) 
+                  }}
                 />
               ))}
             </LineChart>
@@ -167,7 +171,9 @@ const ProjectDetails = () => {
                 cy: isMobile ? 200 : 150,
               }
             ]}
-            onClick={handlePieClick} 
+            onClick={() =>{
+              navigate('/user-profile/1')
+            }}
           />
         </div>
       </div>
