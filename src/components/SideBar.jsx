@@ -26,7 +26,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <>
-      {/* Hamburger Menu Button */}
+  
       <button 
         onClick={toggleSidebar} 
         className="lg:hidden p-4 fixed top-4 left-4 z-50"
@@ -34,7 +34,6 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
         <Menu size={24} />
       </button>
 
-      {/* Sidebar */}
       <div className={`bg-gray-100 h-screen overflow-y-auto transition-all duration-300 fixed top-0 left-0 z-40 ${isOpen ? 'w-64' : 'w-0'} lg:w-64`}>
         <div className="p-4">
           <div className="flex items-center justify-between mb-6">

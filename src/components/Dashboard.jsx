@@ -5,12 +5,10 @@ import useStore from '../Store';
 export const Dashboard = ({ toggleSidebar }) => {
   const navigate = useNavigate();
 
-  // Fetching data from Zustand store
   const { users } = useStore((state) => ({
     users: state.users,
   }));
 
-  // Sample data for recentItems and events
   const recentItems = [
     { title: 'Task 2', time: 'Just now', color: 'from-blue-400 to-blue-600' },
     { title: 'Task 1', time: '9m ago', color: 'from-green-400 to-green-600' },

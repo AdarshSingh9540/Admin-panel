@@ -3,11 +3,11 @@ import useStore from '../Store';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { useMediaQuery } from '@mui/material';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
 const ProjectDetails = () => {
-  const { selectedAssignees } = useStore(); // Access selected assignees from Zustand store
+  const { selectedAssignees } = useStore();
   const [filter, setFilter] = useState('');
   const [workProgress, setWorkProgress] = useState({});
   const location = useLocation();
@@ -16,7 +16,6 @@ const ProjectDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Initialize work progress for each assignee
     const initialProgress = {};
     selectedAssignees.forEach(assignee => {
       initialProgress[assignee.value] = {
@@ -31,23 +30,19 @@ const ProjectDetails = () => {
     assignee.label.toLowerCase().includes(filter.toLowerCase())
   );
 
-  // Prepare data for the MUI PieChart
   const pieChartData = filteredAssignees.map(assignee => ({
     label: assignee.label,
     value: workProgress[assignee.value]?.percentage || 0
   }));
 
-  // Prepare data for the line chart
   const lineChartData = [
     { name: 'Week 1', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[0] || 0])) },
     { name: 'Week 2', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[1] || 0])) },
     { name: 'Week 3', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[2] || 0])) },
     { name: 'Week 4', ...Object.fromEntries(filteredAssignees.map(a => [a.label, workProgress[a.value]?.data[3] || 0])) },
   ];
-  
 
   const handlePieClick = (event, data) => {
-    // Adapt this based on how the MUI PieChart handles clicks
     console.log(`Clicked on ${data.label}`);
   };
 
@@ -61,6 +56,16 @@ const ProjectDetails = () => {
       }
     }));
   };
+
+  const allAssignees = ['Parth', 'Adarsh', 'Priya', 'Rahul', 'Anjali'];
+
+  const handleAssigneeClick = (assigneeName) => {
+    const index = allAssignees.indexOf(assigneeName) + 1; 
+    if (index !== -1) {
+      navigate(`/user-profile/${index}`);
+    }
+  };
+  
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 lg:w-full pt-16">
@@ -83,12 +88,10 @@ const ProjectDetails = () => {
         <div className="flex flex-wrap gap-2">
           {filteredAssignees.map(assignee => (
             <div
-             key={assignee.value}
+              key={assignee.value}
               className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm cursor-pointer"
-              onClick={()=>
-                  navigate("/project-details/user")
-              }
-              >
+              onClick={() => handleAssigneeClick(assignee.value)}
+            >
               {assignee.label}
             </div>
           ))}
@@ -128,29 +131,28 @@ const ProjectDetails = () => {
 
       <div className="grid h-auto grid-cols-1 md:grid-cols-2">
         <div className="border p-4 rounded-lg bg-white shadow-md">
-  <h2 className="text-xl font-semibold mb-6">Work Progress</h2>
-  <ResponsiveContainer width="100%" height={300}>
-    <LineChart data={lineChartData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      {filteredAssignees.map((assignee, index) => (
-        <Line
-          key={assignee.value}
-          type="monotone"
-          dataKey={assignee.label}
-          stroke={`hsl(${index * 137.508},70%,50%)`}
-        />
-      ))}
-    </LineChart>
-  </ResponsiveContainer>
-</div>
+          <h2 className="text-xl font-semibold mb-6">Work Progress</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={lineChartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {filteredAssignees.map((assignee, index) => (
+                <Line
+                  key={assignee.value}
+                  type="monotone"
+                  dataKey={assignee.label}
+                  stroke={`hsl(${index * 137.508},70%,50%)`}
+                />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
 
-
-        <div className="border p-4   rounded-lg h-[450px]   bg-white shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Task Status </h2>
+        <div className="border p-4 rounded-lg h-[450px] bg-white shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Task Status</h2>
           <PieChart
             series={[
               {

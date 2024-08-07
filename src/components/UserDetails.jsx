@@ -27,7 +27,7 @@ const UserDetails = () => {
   }));
 
   return (
-    <div className="p-4 min-h-screen w-full">
+    <div className="p-4 min-h-screen w-full pt-16">
       <div className="w-full mx-auto">
         <div className="text-sm text-gray-500 mb-4">
           <span className="hover:text-blue-600 cursor-pointer">Home</span> / 
