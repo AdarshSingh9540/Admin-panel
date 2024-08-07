@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Calendar, ChevronDown, Menu, PlusSquare, Search } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 export const Sidebar = ({ isOpen, toggleSidebar }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const sidebarItems = [
     { icon: <Search size={18} />, text: 'Search' },
     { icon: <PlusSquare size={18} />, text: 'Home' },
@@ -24,30 +25,55 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
   ];
 
   return (
-    <div className={`bg-gray-100 h-screen overflow-y-auto transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'}`}>
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
-            <span className="font-semibold">Adarsh Singh</span>
-          </div>
-          <ChevronDown size={18} />
-        </div>
-        {sidebarItems.map((item, index) => (
-          <div key={index} className="flex items-center space-x-2 mb-4 cursor-pointer">
-            {item.icon}
-            <span>{item.text}</span>
-          </div>
-        ))}
-        <div className="mt-6">
-          <h3 className="text-xs font-semibold mb-2">Private</h3>
-          {pages.map((page, index) => (
-            <div onClick={()=> navigate('/')} key={index} className="py-1 px-2 cursor-pointer  hover:bg-gray-200 rounded">
-              {page}
+    <>
+      {/* Hamburger Menu Button */}
+      <button 
+        onClick={toggleSidebar} 
+        className="lg:hidden p-4 fixed top-4 left-4 z-50"
+      >
+        <Menu size={24} />
+      </button>
+
+      {/* Sidebar */}
+      <div className={`bg-gray-100 h-screen overflow-y-auto transition-all duration-300 fixed top-0 left-0 z-40 ${isOpen ? 'w-64' : 'w-0'} lg:w-64`}>
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+              <span className="font-semibold hidden lg:block">Adarsh Singh</span>
             </div>
-          ))}
+            <button 
+              onClick={toggleSidebar} 
+              className={`lg:hidden ${isOpen ? 'block' : 'hidden'}`}
+            >
+              <ChevronDown size={18} />
+            </button>
+          </div>
+          <div className="flex flex-col space-y-4 lg:space-y-2">
+            {sidebarItems.map((item, index) => (
+              <div 
+                key={index} 
+                className="flex items-center space-x-2 cursor-pointer hover:bg-gray-200 py-2 px-3 rounded"
+              >
+                {item.icon}
+                <span className="hidden lg:block">{item.text}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6">
+            <h3 className="text-xs font-semibold mb-2 hidden lg:block">Private</h3>
+            {pages.map((page, index) => (
+              <div
+                key={index}
+                onClick={() => navigate('/')}
+                className="py-1 px-2 cursor-pointer hover:bg-gray-200 rounded"
+              >
+                {page}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

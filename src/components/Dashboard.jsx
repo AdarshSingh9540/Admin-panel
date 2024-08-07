@@ -24,9 +24,6 @@ export const Dashboard = ({ toggleSidebar }) => {
     <div className="flex-1 p-8 bg-gray-100">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Good afternoon, Adarsh Singh</h1>
-        <button onClick={toggleSidebar} className="md:hidden">
-          <Menu size={24} />
-        </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentItems.map((item, index) => (
@@ -45,7 +42,7 @@ export const Dashboard = ({ toggleSidebar }) => {
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <span className="text-gray-600">See your upcoming events and join meetings from Home.</span>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+            <button className="bg-blue-500 text-white px-2 lg:px-4 py-1 text-xs lg:py-2 rounded-lg hover:bg-blue-600 transition duration-300">
               Connect to Google Calendar
             </button>
           </div>

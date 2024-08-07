@@ -68,7 +68,7 @@ const ProjectDetails = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 lg:ml-[5rem] lg:w-full">
+    <div className="p-4 sm:p-6 lg:p-8 lg:w-full">
       <h1 className="text-2xl sm:text-3xl font-bold mb-4">Project Details</h1>
       
       <div className="mb-6 border p-4 rounded-lg bg-white shadow-md">

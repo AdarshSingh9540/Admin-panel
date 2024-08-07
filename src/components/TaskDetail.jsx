@@ -54,13 +54,13 @@ const TaskList = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen w-full bg-gray-50">
       <div className="text-sm text-gray-500 p-4 bg-white border-b">
         <span className="hover:text-blue-600 cursor-pointer">Projects & Tasks</span> / 
         <span className="hover:text-blue-600 cursor-pointer"> Tasks</span> / 
         <span className="font-semibold"> {item?.title}</span>
       </div>
-      <div className="flex-grow p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto lg:ml-[15rem]">
+      <div className="flex-grow p-4 sm:p-6 lg:p-8 lg:w-1/2 mx-auto lg:ml-[15rem]">
         <div className="flex items-center mb-8">
           <div className="bg-blue-100 p-3 rounded-lg mr-4">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,7 +166,7 @@ const TaskList = () => {
         </div>
 
         <div className="mt-8">
-          <div className="flex flex-col sm:flex-row items-center mb-4">
+          <div className="flex  lg:flex-col sm:flex-row items-center mb-4">
             <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" className="w-8 h-8 rounded-full mr-2" />
             <div className="flex-1 relative">
               <input
@@ -195,7 +195,7 @@ const TaskList = () => {
 
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">About this task</h2>
-          <div className="flex flex-col sm:flex-row items-center mb-2">
+          <div className="flex lg:flex-col sm:flex-row items-center mb-2">
             <input
               type="text"
               placeholder="Add a task item..."
