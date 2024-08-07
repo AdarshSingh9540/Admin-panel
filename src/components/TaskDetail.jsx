@@ -60,23 +60,23 @@ const TaskList = () => {
         <span className="hover:text-blue-600 cursor-pointer"> Tasks</span> / 
         <span className="font-semibold"> {item?.title}</span>
       </div>
-      <div className="flex-grow p-8 max-w-4xl mx-auto w-full ml-[15rem]">
+      <div className="flex-grow p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto lg:ml-[15rem]">
         <div className="flex items-center mb-8">
           <div className="bg-blue-100 p-3 rounded-lg mr-4">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="24" height="24" rx="4" fill="#3B82F6" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-800">{item?.title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{item?.title}</h1>
         </div>
 
         <div className="space-y-6">
-          <div className="flex items-center">
-            <span className="w-32 text-gray-600 font-medium">Status</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <span className="w-full sm:w-32 text-gray-600 font-medium mb-2 sm:mb-0">Status</span>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-300 w-full sm:w-auto"
             >
               {['Not started', 'In progress', 'Done'].map(option => (
                 <option key={option} value={option}>{option}</option>
@@ -84,12 +84,12 @@ const TaskList = () => {
             </select>
           </div>
 
-          <div className="flex items-center">
-            <span className="w-32 text-gray-600 font-medium">Priority</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <span className="w-full sm:w-32 text-gray-600 font-medium mb-2 sm:mb-0">Priority</span>
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
-              className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-medium focus:outline-none focus:ring-2 focus:ring-yellow-300 w-full sm:w-auto"
             >
               {['Low', 'Medium', 'High'].map(option => (
                 <option key={option} value={option}>{option}</option>
@@ -97,8 +97,8 @@ const TaskList = () => {
             </select>
           </div>
 
-          <div className="flex items-start">
-            <span className="w-32 text-gray-600 font-medium mt-2">Assignees</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <span className="w-full sm:w-32 text-gray-600 font-medium mb-2 sm:mb-0">Assignees</span>
             <div className="flex-1">
               <Select
                 isMulti
@@ -146,19 +146,19 @@ const TaskList = () => {
             </div>
           </div>
 
-          <div className="flex items-center">
-            <span className="w-32 text-gray-600 font-medium">Due Date:</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <span className="w-full sm:w-32 text-gray-600 font-medium mb-2 sm:mb-0">Due</span>
             <input
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300 w-full sm:w-auto"
             />
           </div>
 
           <div className="flex items-center">
-            <span className="w-32 text-gray-600 font-medium">More properties</span>
-            <button className="flex items-center text-blue-600 hover:text-blue-800">
+            <span className="text-gray-600 font-medium">More properties</span>
+            <button className="flex items-center text-blue-600 hover:text-blue-800 ml-4">
               <Plus size={16} className="mr-1" />
               <span>Add property</span>
             </button>
@@ -166,7 +166,7 @@ const TaskList = () => {
         </div>
 
         <div className="mt-8">
-          <div className="flex items-center mb-2">
+          <div className="flex flex-col sm:flex-row items-center mb-4">
             <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" className="w-8 h-8 rounded-full mr-2" />
             <div className="flex-1 relative">
               <input
@@ -184,7 +184,7 @@ const TaskList = () => {
               </button>
             </div>
           </div>
-          <div className="mt-4 space-y-2">
+          <div className="space-y-2">
             {comments.map((c, index) => (
               <div key={index} className="bg-white p-3 rounded-lg shadow">
                 {c}
@@ -194,8 +194,8 @@ const TaskList = () => {
         </div>
 
         <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-2 text-gray-800">About this task</h2>
-          <div className="flex items-center mb-2">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">About this task</h2>
+          <div className="flex flex-col sm:flex-row items-center mb-2">
             <input
               type="text"
               placeholder="Add a task item..."

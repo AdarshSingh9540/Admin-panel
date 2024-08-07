@@ -68,33 +68,33 @@ const ProjectDetails = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Project Details</h1>
+    <div className="p-4 sm:p-6 lg:p-8 lg:ml-[5rem] lg:w-full">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4">Project Details</h1>
       
-      <div className="mb-6 border p-4 rounded">
+      <div className="mb-6 border p-4 rounded-lg bg-white shadow-md">
         <h2 className="text-xl font-semibold mb-2">Selected Assignees</h2>
         <input
           type="text"
           placeholder="Filter assignees..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="w-full p-2 border rounded mb-4"
+          className="w-full p-2 border rounded-lg mb-4"
         />
         <div className="flex flex-wrap gap-2">
           {filteredAssignees.map(assignee => (
-            <div key={assignee.value} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+            <div key={assignee.value} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
               {assignee.label}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-6 border p-4 rounded">
+      <div className="mt-6 border p-4 rounded-lg bg-white shadow-md">
         <h2 className="text-xl font-semibold mb-4">Update Work Progress</h2>
         {filteredAssignees.map(assignee => (
           <div key={assignee.value} className="mb-4">
             <h3 className="font-semibold mb-2">{assignee.label}</h3>
-            <div className="flex gap-2 mb-2">
+            <div className="flex flex-wrap gap-2 mb-2">
               {['Week 1', 'Week 2', 'Week 3', 'Week 4'].map((week, index) => (
                 <input
                   key={week}
@@ -104,7 +104,7 @@ const ProjectDetails = () => {
                   max="100"
                   value={workProgress[assignee.value]?.data[index] || 0}
                   onChange={(e) => updateWorkProgress(assignee.value, index, parseInt(e.target.value, 10))}
-                  className="w-20 p-1 border rounded"
+                  className="w-24 p-2 border rounded-lg"
                 />
               ))}
             </div>
@@ -121,7 +121,7 @@ const ProjectDetails = () => {
       </div>
 
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-        <div className="border p-4 rounded">
+        <div className="border p-4 rounded-lg bg-white shadow-md">
           <h2 className="text-xl font-semibold mb-2">Work Progress (Line Chart)</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={lineChartData}>
@@ -142,7 +142,7 @@ const ProjectDetails = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="border p-4 rounded">
+        <div className="border p-4 rounded-lg bg-white shadow-md">
           <h2 className="text-xl font-semibold mb-2">Task Status (Pie Chart)</h2>
           <Pie
             data={pieChartData}
@@ -157,8 +157,6 @@ const ProjectDetails = () => {
           />
         </div>
       </div>
-
-
     </div>
   );
 };
