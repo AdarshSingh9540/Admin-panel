@@ -14,11 +14,11 @@ const App = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 relative " >
+    <div className="flex h-screen bg-gray-50 relative">
       <BrowserRouter>
         <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         <div 
-          className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}  lg:pl-64`}
+          className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'ml-0'} lg:ml-64`}
         >
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -28,6 +28,12 @@ const App = () => {
             <Route path="/user-profile/:userId" element={<UserDetails />} />
           </Routes>
         </div>
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={toggleSidebar}
+          ></div>
+        )}
       </BrowserRouter>
     </div>
   );

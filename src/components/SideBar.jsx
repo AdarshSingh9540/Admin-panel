@@ -12,12 +12,10 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
   ];
 
   const pages = [
-    'Web Dev',
-    'React Developer - Prog...',
-    'React Developer - Prog...',
+    'Dashboard',
+    'All Team Membar',
+    'Dashboard',
     'Week-7',
-    'Getting Started on Mo...',
-    'Quick Note',
     'Personal Home',
     'Task List',
     'Journal',
@@ -26,36 +24,36 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <>
-  
-      <button 
-        onClick={toggleSidebar} 
+      <button
+        onClick={toggleSidebar}
         className="lg:hidden p-4 fixed top-4 left-4 z-50"
       >
         <Menu size={24} />
       </button>
-
-      <div className={`bg-gray-100 h-screen overflow-y-auto transition-all duration-300 fixed top-0 left-0 z-40 ${isOpen ? 'w-64' : 'w-0'} lg:w-64`}>
+      <div className={`bg-gray-100 h-screen overflow-y-auto transition-all duration-300 fixed top-0 left-0 z-50 ${isOpen ? 'w-64' : 'w-0'} lg:w-64`}>
         <div className="p-4">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-500 rounded-full"><img src="https://avatars.githubusercontent.com/u/131537713?v=4" alt="" /></div>
-              <span className="font-semibold hidden lg:block">Adarsh Singh</span>
+              <div className="w-8 h-8 bg-blue-500 rounded-full">
+                <img src="https://avatars.githubusercontent.com/u/131537713?v=4" alt="" />
+              </div>
+              <span className="font-semibold text-lg ">Adarsh Singh</span>
             </div>
-            <button 
-              onClick={toggleSidebar} 
+            <button
+              onClick={toggleSidebar}
               className={`lg:hidden ${isOpen ? 'block' : 'hidden'}`}
             >
-              <ChevronDown size={18} />
+              <span className="material-symbols-outlined">close</span>
             </button>
           </div>
           <div className="flex flex-col space-y-4 lg:space-y-2">
             {sidebarItems.map((item, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="flex items-center space-x-2 cursor-pointer hover:bg-gray-200 py-2 px-3 rounded"
               >
                 {item.icon}
-                <span className="hidden lg:block">{item.text}</span>
+                <span className="">{item.text}</span>
               </div>
             ))}
           </div>

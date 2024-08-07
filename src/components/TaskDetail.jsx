@@ -214,12 +214,22 @@ const TaskList = () => {
   </button>
 </div>
 
-
-          <ul className="list-disc pl-5 text-gray-700">
+            <ul className="list-disc pl-5 text-gray-700">
             {taskItems.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
+        </div>
+
+        <div className='w-full mt-12'>
+          <button 
+          className='rounded-full w-full bg-black hover:bg-blue-950 text-white font-medium p-3'
+          onClick={()=>
+            navigate('/project-detail')
+          }
+          >
+          Check Stats
+          </button>
         </div>
       </div>
     </div>
