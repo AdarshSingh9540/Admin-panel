@@ -32,7 +32,7 @@ export const Dashboard = ({ toggleSidebar }) => {
   };
 
   return (
-    <div className="flex-1 p-8 bg-gray-100 pt-16">
+    <div className="flex-1 p-8  pt-16">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-xl lg:text-3xl font-bold text-gray-800">
           {getGreeting()}, Adarsh Singh
@@ -53,7 +53,7 @@ export const Dashboard = ({ toggleSidebar }) => {
       </div>
 
       <div className="mt-12">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">All Team Members</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Recent Assign Task </h2>
         <div className="grid grid-cols-1 gap-6">
           {users.map((user) => (
             <div

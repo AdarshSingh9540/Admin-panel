@@ -47,30 +47,30 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
               </div>
             ))}
           </div>
-          <div className="mt-6">
-          <h3 className="text-xs font-semibold mb-2 hidden lg:block">Private</h3>
-          <div className="py-1 lg:py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
+          <div className="mt-6  border-t-8 ">
+          <h3 className="text-xs font-semibold mb-2 hidden lg:block mt-6 ">Private</h3>
+          <div className="py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center mt-4 lg:mt-0">
             <Link to="/" className="flex items-center space-x-2">
               <span className="material-symbols-outlined">dashboard</span>
               <span>DashBoard</span>
             </Link>
           </div>
         
-          <div className="py-1 lg:py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
+          <div className="py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
             <Link to="/task-list" className="flex items-center space-x-2">
               <span className="material-symbols-outlined">add_task</span>
               <span>TaskList</span>
             </Link>
           </div>
         
-          <div className="py-1 lg:py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+          <div className="py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
+            <Link to="/all-members" className="flex items-center space-x-2">
               <span className="material-symbols-outlined">diversity_3</span>
               <span>All Members</span>
             </Link>
           </div>
         
-          <div className="py-1 lg:py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
+          <div className="py-2 px-2 cursor-pointer hover:bg-gray-200 rounded flex items-center">
             <Link className="flex items-center space-x-2">
               <span className="material-symbols-outlined">settings</span>
               <span>Setting</span>

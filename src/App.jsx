@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import TaskDetail from './components/TaskDetail';
 import ProjectDetails from './components/ProjectDetails';
 import UserDetails from './components/UserDetails';
+import AllTeamMember from './components/AllTeamMember';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/project-detail" element={<ProjectDetails />} />
             <Route path='/project-details/user' element={<UserDetails/>}/>
             <Route path="/user-profile/:userId" element={<UserDetails />} />
+            <Route path="/all-members" element={<AllTeamMember/>} />
           </Routes>
         </div>
         {sidebarOpen && (
