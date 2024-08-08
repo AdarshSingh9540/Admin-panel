@@ -4,7 +4,6 @@ import useStore from '../Store';
 
 export const Dashboard = ({ toggleSidebar }) => {
   const navigate = useNavigate();
-
   const { users } = useStore((state) => ({
     users: state.users,
   }));
@@ -25,12 +24,21 @@ export const Dashboard = ({ toggleSidebar }) => {
     { title: 'Birthday celebration', time: '', location: '' },
   ];
 
+  const getGreeting = () => {
+    const hours = new Date().getHours();
+    if (hours < 12) return 'Good Morning';
+    if (hours < 18) return 'Good Afternoon';
+    return 'Good Evening';
+  };
+
   return (
     <div className="flex-1 p-8 bg-gray-100 pt-16">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Good afternoon, Adarsh Singh</h1>
+        <h1 className="text-xl lg:text-3xl font-bold text-gray-800">
+          {getGreeting()}, Adarsh Singh
+        </h1>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentItems.map((item, index) => (
           <div
@@ -51,26 +59,26 @@ export const Dashboard = ({ toggleSidebar }) => {
             <div
               key={user.id}
               onClick={() => navigate(`/user-profile/${user.id}`)}
-              className="bg-white p-6  rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl flex flex-row justify-between lg:mx-6  "
+              className="bg-white p-6 rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl flex flex-row justify-between lg:mx-6"
             >
-               <div className='flex flex-row pt-2'>
-               <div className="bg-gray-200 p-2 rounded-full  lg:px-4 mb-2">
-                <span className="text-gray-800 text-lg font-bold">{user.name[0]}</span>
+              <div className="flex flex-row pt-2">
+                <div className="bg-gray-200 p-2 rounded-full lg:px-4 mb-2">
+                  <span className="text-gray-800 text-lg font-bold">{user.name[0]}</span>
+                </div>
+                <h3 className="font-semibold text-lg text-gray-800 ml-6">{user.name}</h3>
+                <p className="text-md text-gray-600 ml-6">Tasks: {user.tasks.length}</p>
               </div>
-              <h3 className="font-semibold text-lg text-gray-800 ml-6">{user.name}</h3>
-              <p className="text-md text-gray-600 ml-6">Tasks: {user.tasks.length}</p>
-               </div>
-              
-               <div className='hidden lg:block  pt-2'>
-               <div className='flex flex-row'>
-               <div>
-               <p className='text-md'>See all assign task  </p>
-               </div>
-               <div className='m-3 my-1'>
-               <span className="material-symbols-outlined">arrow_forward_ios</span>
-               </div>
-               </div>
-               </div>
+
+              <div className="hidden lg:block pt-2">
+                <div className="flex flex-row">
+                  <div>
+                    <p className="text-md">See all assigned tasks</p>
+                  </div>
+                  <div className="m-3 my-1">
+                    <span className="material-symbols-outlined">arrow_forward_ios</span>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
